@@ -6,6 +6,9 @@ package by.it.group773602.glazko.lesson01;
  * время расчета должно быть не более 2 секунд
  */
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FiboC {
 
     private long startTime = System.currentTimeMillis();
@@ -25,9 +28,23 @@ public class FiboC {
         //решение практически невозможно найти интуитивно
         //вам потребуется дополнительный поиск информации
         //см. период Пизано
-        return 0L;
+        List<Long> sequence = getSequence(m);
+        long period = sequence.size() - 2;
+        int index = (int) (n % period);
+        return sequence.get(index);
     }
 
-
+    private List<Long> getSequence(long m) {
+        List<Long> sequence = new ArrayList<>();
+        sequence.add((long) 0);
+        sequence.add((long) 1);
+        boolean continueLooping = true;
+        for (int index = 2; index < m * 6 && continueLooping; index++) {
+            sequence.add((sequence.get(index - 1) + sequence.get(index - 2)) % m);
+            if(sequence.get(index) == 1 && sequence.get(index - 1) == 0) {
+                continueLooping = false;
+            }
+        }
+        return sequence;
+    }
 }
-
