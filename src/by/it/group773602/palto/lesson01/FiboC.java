@@ -29,7 +29,6 @@ public class FiboC {
         //вам потребуется дополнительный поиск информации
         //см. период Пизано
         List<Long> list = new ArrayList<>();
-
         list.add(0L);
         list.add(1L);
 
