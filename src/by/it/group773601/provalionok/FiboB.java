@@ -1,5 +1,6 @@
 package by.it.group773601.provalionok;
 
+import java.lang.reflect.Array;
 import java.math.BigInteger;
 
 /*
@@ -15,6 +16,8 @@ public class FiboB {
         return System.currentTimeMillis() - startTime;
     }
 
+    private BigInteger[] array = {BigInteger.ZERO,BigInteger.ONE};
+
     public static void main(String[] args) {
 
         //вычисление чисел простым быстрым методом
@@ -24,8 +27,17 @@ public class FiboB {
     }
 
     BigInteger fastB(Integer n) {
-        //здесь нужно реализовать вариант с временем O(n) и памятью O(n)
-        return BigInteger.ZERO;
+        for (int i = 0;i<n;i++){
+            if (i%2==0){
+                array[0]=array[0].add(array[1]);
+            }
+            else {
+                array[1]=array[0].add(array[1]);
+            }
+        }
+
+        if (n%2==0) return array[0];
+        else return array[1];
     }
 
 }
