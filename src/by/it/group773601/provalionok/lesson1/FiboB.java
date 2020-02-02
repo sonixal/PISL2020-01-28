@@ -1,6 +1,5 @@
-package by.it.group773601.provalionok;
+package by.it.group773601.provalionok.lesson1;
 
-import java.lang.reflect.Array;
 import java.math.BigInteger;
 
 /*
