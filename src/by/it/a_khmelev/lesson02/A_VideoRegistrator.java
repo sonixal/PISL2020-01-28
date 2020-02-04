@@ -1,7 +1,6 @@
 package by.it.a_khmelev.lesson02;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 /*
 даны события events
