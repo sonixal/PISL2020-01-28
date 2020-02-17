@@ -1,4 +1,4 @@
-package by.it.group773601.shulya.lesson02;
+package by.it.group773601.dedik.lesson02;
 /*
 Даны
 1) объем рюкзака 4
@@ -11,12 +11,13 @@ package by.it.group773601.shulya.lesson02;
 
 Необходимо собрать наиболее дорогой вариант рюкзака для этого объема
 Предметы можно резать на кусочки (т.е. алгоритм будет жадным)
+
  */
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Scanner;
-
 
 public class C_GreedyKnapsack {
     private class Item implements Comparable<Item> {
@@ -39,13 +40,10 @@ public class C_GreedyKnapsack {
         @Override
         public int compareTo(Item o) {
             //тут может быть ваш компаратор
-            if ((this.cost/this.weight)==(o.cost/o.weight)) {
-                return 0;
-            } else if ((this.cost/this.weight)>(o.cost/o.weight)) {
-                return -1;
-            } else {
-                return 1;
-            }
+            double specificWeight = cost / weight;
+            double specificWeightObject = o.cost / o.weight;
+
+            return String.valueOf(specificWeightObject).compareTo(String.valueOf(specificWeight));
         }
     }
 
@@ -58,47 +56,40 @@ public class C_GreedyKnapsack {
             items[i] = new Item(input.nextInt(), input.nextInt());
         }
         //покажем предметы
-        for (Item item:items) {
+        for (Item item : items) {
             System.out.println(item);
         }
-        System.out.printf("Всего предметов: %d. Рюкзак вмещает %d кг.\n",n,W);
+        System.out.printf("Всего предметов: %d. Рюкзак вмещает %d кг.\n", n, W);
 
-        //тут необходимо реализовать решение задачи
-        //итогом является максимально воможная стоимость вещей в рюкзаке
-        //вещи можно резать на кусочки (непрерывный рюкзак)
-        double result = 0;
-        //тут реализуйте алгоритм сбора рюкзака
-        //будет особенно хорошо, если с собственной сортировкой
-        //кроме того, можете описать свой компаратор в классе Item
-        //ваше решение.
         Arrays.sort(items);
-        int W1 = 0;
-        for (Item item:items) {
-            if(W1+item.weight<=W){
-                W1+=item.weight;
-                result+=item.cost;
-            }
-            else{
-                int temp = W-W1;
-                if(temp<=item.weight) {
-                    result += (item.cost / item.weight) * temp;
-                    W1 += temp;
+        double result = 0;
+        int totalWeight = 0;
+
+        for (Item item : items) {
+            if (totalWeight == 0 && item.weight <= 60) {
+                result = item.cost;
+                totalWeight = item.weight;
+            } else if (totalWeight < 60) {
+                if (item.weight < (60 - totalWeight)) {
+                    result += item.cost;
+                    totalWeight += item.weight;
+                } else {
+                    result += item.cost / item.weight * (60 - totalWeight);
+                    totalWeight += 60 - totalWeight;
                 }
-                if(W1==W)
-                    break;
             }
         }
 
-        System.out.printf("Удалось собрать рюкзак на сумму %f\n",result);
+        System.out.printf("Удалось собрать рюкзак на сумму %f\n", result);
         return result;
     }
 
     public static void main(String[] args) throws FileNotFoundException {
         long startTime = System.currentTimeMillis();
-        String root=System.getProperty("user.dir")+"/src/";
-        File f=new File(root+"by/it/a_khmelev/lesson02/greedyKnapsack.txt");
-        double costFinal=new C_GreedyKnapsack().calc(f);
+        String root = System.getProperty("user.dir") + "/src/";
+        File f = new File(root + "by/it/a_khmelev/lesson02/greedyKnapsack.txt");
+        double costFinal = new C_GreedyKnapsack().calc(f);
         long finishTime = System.currentTimeMillis();
-        System.out.printf("Общая стоимость %f (время %d)",costFinal,finishTime - startTime);
+        System.out.printf("Общая стоимость %f (время %d)", costFinal, finishTime - startTime);
     }
 }

@@ -1,4 +1,4 @@
-package by.it.group773601.shulya.lesson02;
+package by.it.group773602.vorobyov.lesson02;
 /*
 Даны
 1) объем рюкзака 4
@@ -14,9 +14,7 @@ package by.it.group773601.shulya.lesson02;
  */
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 import java.util.Scanner;
-
 
 public class C_GreedyKnapsack {
     private class Item implements Comparable<Item> {
@@ -39,13 +37,9 @@ public class C_GreedyKnapsack {
         @Override
         public int compareTo(Item o) {
             //тут может быть ваш компаратор
-            if ((this.cost/this.weight)==(o.cost/o.weight)) {
-                return 0;
-            } else if ((this.cost/this.weight)>(o.cost/o.weight)) {
-                return -1;
-            } else {
-                return 1;
-            }
+
+
+            return 0;
         }
     }
 
@@ -71,23 +65,10 @@ public class C_GreedyKnapsack {
         //будет особенно хорошо, если с собственной сортировкой
         //кроме того, можете описать свой компаратор в классе Item
         //ваше решение.
-        Arrays.sort(items);
-        int W1 = 0;
-        for (Item item:items) {
-            if(W1+item.weight<=W){
-                W1+=item.weight;
-                result+=item.cost;
-            }
-            else{
-                int temp = W-W1;
-                if(temp<=item.weight) {
-                    result += (item.cost / item.weight) * temp;
-                    W1 += temp;
-                }
-                if(W1==W)
-                    break;
-            }
-        }
+
+
+
+
 
         System.out.printf("Удалось собрать рюкзак на сумму %f\n",result);
         return result;

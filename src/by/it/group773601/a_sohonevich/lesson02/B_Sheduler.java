@@ -1,4 +1,4 @@
-package by.it.group773601.shulya.lesson02;
+package lesson02;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,6 +10,7 @@ import java.util.List;
 непересекающихся событий было максимально.
 Алгоритм жадный. Для реализации обдумайте надежный шаг.
 */
+
 public class B_Sheduler {
     //событие у аудитории(два поля: начало и конец)
     static class Event {
@@ -49,32 +50,17 @@ public class B_Sheduler {
         List<Event> result;
         result = new ArrayList<>();
         //ваше решение.
-        class SortByStop implements Comparator<Event>
-        {
-            public int compare(Event a, Event b)
-            {
-                return a.stop - b.stop;
-            }
-        }
-        Arrays.sort(events, new SortByStop());
 
-        int last = 0;
 
-        // result.add(events[last]);
+        Arrays.sort(events, Comparator.comparingInt(o -> o.stop));
 
-        for (int i = 0; i<events.length;i++){
-            if(result.isEmpty() && events[i].start>=from){
-                last = i;
-                result.add(events[last]);
-
-            }
-            else if(events[i].start>=events[last].stop && events[i].stop<=to) {
-                result.add(events[i]);
-                last=i;
+        for (Event event : events) {
+            if (event.start >= from) {
+                result.add(event);
+                from = event.stop;
             }
         }
 
-
-        return result;                        //вернем итог
+        return result;
     }
 }

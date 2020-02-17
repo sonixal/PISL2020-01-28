@@ -1,7 +1,7 @@
-package by.it.group773601.shulya.lesson02;
+package by.it.group773602.gritskevich.lesson02;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 /*
 даны события events
@@ -10,25 +10,44 @@ import java.util.List;
 были зарегистрированы.
 Алгоритм жадный. Для реализации обдумайте надежный шаг.
 */
+
 public class A_VideoRegistrator {
 
-
     public static void main(String[] args) {
-        A_VideoRegistrator instance = new A_VideoRegistrator();
+        A_VideoRegistrator instance=new A_VideoRegistrator();
         double[] events = new double[]{1, 1.1, 1.6, 2.2, 2.4, 2.7, 3.9, 8.1, 9.1, 5.5, 3.7};
-        List<Double> starts = instance.calcStartTimes(events, 1); //рассчитаем моменты старта, с длинной сеанса 1
+        List<Double> starts = instance.calcStartTimes(events,1); //рассчитаем моменты старта, с длинной сеанса 1
         System.out.println(starts);                            //покажем моменты старта
     }
-
     //модификаторы доступа опущены для возможности тестирования
     List<Double> calcStartTimes(double[] events, double workDuration){
         //events - события которые нужно зарегистрировать
         //timeWorkDuration время работы видеокамеры после старта
         List<Double> result;
         result = new ArrayList<>();
-        int i=0;                              //i - это индекс события events[i]
-        //комментарии от проверочного решения сохранены для подсказки, но вы можете их удалить.
+        int i=0;
 
+        Arrays.sort(events);
+
+        double timeToStart = events[i];
+        double timeToEnd = timeToStart + workDuration;
+        result.add(events[i]);
+
+        while (i < events.length) {
+            // если событие происходит до окончания текущего запуска регистратора
+            if (events[i] <= timeToEnd) {
+                i++;
+                continue;
+            }
+
+            timeToStart = events[i];
+            result.add(events[i]);
+            timeToEnd = timeToStart + workDuration;
+
+            i++;
+        }
+        //i - это индекс события events[i]
+        //комментарии от проверочного решения сохранены для подсказки, но вы можете их удалить.
         //подготовка к жадному поглощению массива событий
         //hint: сортировка Arrays.sort обеспечит скорость алгоритма
         //C*(n log n) + C1*n = O(n log n)
@@ -39,22 +58,8 @@ public class A_VideoRegistrator {
         //вычислим момент окончания работы видеокамеры
         //и теперь пропустим все покрываемые события
         //за время до конца работы, увеличивая индекс
-        Arrays.sort(events);
 
-        double time = events[i]+workDuration;
-        double start = events[i];
-        result.add(events[i]);
 
-        while (i < events.length) {
-            if(events[i] > time) {
-                if(start!=events[i]) {
-                    result.add(events[i]);
-                    start=events[i];
-                }
-                time = start+workDuration;
-            }
-            i++;
-        }
 
         return result;                        //вернем итог
     }

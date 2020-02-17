@@ -1,15 +1,18 @@
-package by.it.group773601.shulya.lesson02;
+package by.it.group773602.gritskevich.lesson02;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 /*
 даны интервальные события events
 реализуйте метод calcStartTimes, так, чтобы число принятых к выполнению
 непересекающихся событий было максимально.
 Алгоритм жадный. Для реализации обдумайте надежный шаг.
 */
+
 public class B_Sheduler {
     //событие у аудитории(два поля: начало и конец)
     static class Event {
@@ -49,31 +52,27 @@ public class B_Sheduler {
         List<Event> result;
         result = new ArrayList<>();
         //ваше решение.
-        class SortByStop implements Comparator<Event>
-        {
-            public int compare(Event a, Event b)
-            {
-                return a.stop - b.stop;
+        //int i;
+        List<Event> sortedArray = Arrays.asList(events);
+        sortedArray.sort(Comparator.comparing(event -> event.start));
+
+        result.add(sortedArray.get(0));
+
+
+        int i = 0;
+        while (i < sortedArray.size()){
+            if(sortedArray.get(i).start == result.get(result.size() - 1).start){
+                if(sortedArray.get(i).stop < result.get(result.size() - 1).stop) {
+                    result.remove(result.get(result.size() - 1));
+                    result.add(sortedArray.get(i));
+                    //i++;
+                }
             }
+            else if (sortedArray.get(i).start >= result.get(result.size() - 1).stop) {
+                result.add(sortedArray.get(i));
+            }
+            i++;
         }
-        Arrays.sort(events, new SortByStop());
-
-        int last = 0;
-
-        // result.add(events[last]);
-
-        for (int i = 0; i<events.length;i++){
-            if(result.isEmpty() && events[i].start>=from){
-                last = i;
-                result.add(events[last]);
-
-            }
-            else if(events[i].start>=events[last].stop && events[i].stop<=to) {
-                result.add(events[i]);
-                last=i;
-            }
-        }
-
 
         return result;                        //вернем итог
     }

@@ -1,4 +1,4 @@
-package by.it.group773601.shulya.lesson02;
+package by.it.group773601.leshchinskaya.lesson02;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,6 +10,7 @@ import java.util.List;
 непересекающихся событий было максимально.
 Алгоритм жадный. Для реализации обдумайте надежный шаг.
 */
+
 public class B_Sheduler {
     //событие у аудитории(два поля: начало и конец)
     static class Event {
@@ -48,33 +49,20 @@ public class B_Sheduler {
         //начало и конец событий могут совпадать.
         List<Event> result;
         result = new ArrayList<>();
-        //ваше решение.
-        class SortByStop implements Comparator<Event>
-        {
-            public int compare(Event a, Event b)
-            {
-                return a.stop - b.stop;
+
+        List<Event> eventList = Arrays.asList(events);
+        eventList.sort(Comparator.comparing(event -> event.stop));
+
+        result.add(eventList.get(0));
+
+        for (Event event : eventList) {
+            if (result.get(result.size() - 1).start == event.start && result.get(result.size() - 1).stop > event.stop) {
+                result.remove(result.size() - 1);
+                result.add(event);
+            } else if (result.get(result.size() - 1).stop <= event.start) {
+                result.add(event);
             }
         }
-        Arrays.sort(events, new SortByStop());
-
-        int last = 0;
-
-        // result.add(events[last]);
-
-        for (int i = 0; i<events.length;i++){
-            if(result.isEmpty() && events[i].start>=from){
-                last = i;
-                result.add(events[last]);
-
-            }
-            else if(events[i].start>=events[last].stop && events[i].stop<=to) {
-                result.add(events[i]);
-                last=i;
-            }
-        }
-
-
         return result;                        //вернем итог
     }
 }
