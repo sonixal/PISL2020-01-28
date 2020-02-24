@@ -117,25 +117,13 @@ public class C_QSortOptimized {
             segments[i]=new Segment(scanner.nextInt(),scanner.nextInt());
         }
         //читаем точки
-        for (int i = 0; i < m; i++) {
+        for (int i = 0; i < n; i++) {
             points[i]=scanner.nextInt();
         }
         //тут реализуйте логику задачи с применением быстрой сортировки
         //в классе отрезка Segment реализуйте нужный для этой задачи компаратор
 
-
-        qSort(segments, 0, segments.length - 1);
-        int count;
-        for (int i = 0; i < points.length; i++){
-            count = 0;
-            for (int j = 0; j < segments.length && points[i] >= segments[j].start; j++) {
-                if (points[i] <= segments[j].stop){
-                    count++;
-                }
-            }
-            result[i] = count;
-        }
-
+        
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
