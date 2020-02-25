@@ -1,4 +1,4 @@
-package by.it.group773601.churlovskaya.lesson02;
+package by.it.group773602.vasilevich.lesson02;
 
 import org.junit.Test;
 
@@ -11,9 +11,9 @@ public class Lesson2Test {
     /*
     для прохождения тестов создайте JUnit-конфигурацию на свой пакет:
     Поля:
-    Name:               Test a_khmelev (тут ваша фамилия)
+    Name:               Test vasilevich
     Test kind:          All in package
-    Package:            by.it.a_khmelev (тут ваша фамилия)
+    Package:            by.it.group773602.vasilevich.lesson02
     Search for test:    In whole project
     */
 
@@ -43,10 +43,11 @@ public class Lesson2Test {
     }
     @Test
     public void C_GreedyKnapsack() throws Exception {
-        String root=System.getProperty("user.dir")+"/src/";
-        File f=new File(root+"by/it/a_khmelev/lesson02/greedyKnapsack.txt");
+        String root=System.getProperty("user.dir")+"/";
+        File f=new File(root+ "by/it/group773602/vasilevich/lesson02/greedyKnapsack.txt");
         double costFinal=new C_GreedyKnapsack().calc(f);
         boolean ok=costFinal==200;
         assertTrue("B_Sheduler failed", ok);
     }
+
 }

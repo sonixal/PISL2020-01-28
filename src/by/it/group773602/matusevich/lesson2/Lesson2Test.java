@@ -1,4 +1,4 @@
-package by.it.group773601.churlovskaya.lesson02;
+package by.it.group773602.matusevich.lesson2;
 
 import org.junit.Test;
 
@@ -17,9 +17,10 @@ public class Lesson2Test {
     Search for test:    In whole project
     */
 
+
     @Test
-    public void A_VideoRegistrator() throws Exception {
-        A_VideoRegistrator instance=new A_VideoRegistrator();
+    public void A_VideoRegistrator() {
+        by.it.group773602.matusevich.lesson2.A_VideoRegistrator instance=new A_VideoRegistrator();
         double[] events=new double[]{1, 1.1, 1.6, 2.2, 2.4, 2.7, 3.9, 8.1, 9.1, 5.5, 3.7};
         List<Double> starts=instance.calcStartTimes(events,1); //рассчитаем моменты старта, с длинной сеанса 1
         boolean ok=starts.toString().equals("[1.0, 2.2, 3.7, 5.5, 8.1]");
@@ -27,7 +28,7 @@ public class Lesson2Test {
     }
 
     @Test
-    public void B_Sheduler() throws Exception {
+    public void B_Sheduler() {
         B_Sheduler instance = new B_Sheduler();
         B_Sheduler.Event[] events = {new B_Sheduler.Event(0, 3), new B_Sheduler.Event(0, 1), new B_Sheduler.Event(1, 2), new B_Sheduler.Event(3, 5),
                 new B_Sheduler.Event(1, 3), new B_Sheduler.Event(1, 3), new B_Sheduler.Event(1, 3), new B_Sheduler.Event(3, 6),
@@ -49,4 +50,5 @@ public class Lesson2Test {
         boolean ok=costFinal==200;
         assertTrue("B_Sheduler failed", ok);
     }
+
 }
