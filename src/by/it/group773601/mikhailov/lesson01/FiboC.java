@@ -1,4 +1,4 @@
-package by.it.group773601.dedik.lesson01;
+package by.it.group773601.mikhailov.lesson01;
 
 /*
  * Даны целые числа 1<=n<=1E18 и 2<=m<=1E5,
@@ -7,11 +7,14 @@ package by.it.group773601.dedik.lesson01;
  */
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class FiboC {
 
     private long startTime = System.currentTimeMillis();
+
+    private long time() {
+        return System.currentTimeMillis() - startTime;
+    }
 
     public static void main(String[] args) {
         FiboC fibo = new FiboC();
@@ -20,33 +23,27 @@ public class FiboC {
         System.out.printf("fasterC(%d)=%d \n\t time=%d \n\n", n, fibo.fasterC(n, m), fibo.time());
     }
 
-    private long time() {
-        return System.currentTimeMillis() - startTime;
-    }
-
     long fasterC(long n, int m) {
         //решение практически невозможно найти интуитивно
         //вам потребуется дополнительный поиск информации
         //см. период Пизано
+        ArrayList<Long> s = getSequencePeriod(m);
+        long period = s.size() - 2; // находим период Пизано
+        int val = (int)(n % period);
+        return s.get(val);
+    }
 
-        List<Long> listRemainder = new ArrayList<>();
-
-        listRemainder.add(0L);
-        listRemainder.add(1L);
-
-        for (int i = 2; i < m * 6; i++) {
-            long num = listRemainder.get(i - 1) + listRemainder.get(i - 2);
-            listRemainder.add(num % m);
-            if (listRemainder.get(i) == 1 && listRemainder.get(i - 1) == 0) {
+    private static ArrayList<Long> getSequencePeriod(long m){
+        ArrayList<Long> s = new ArrayList();
+        s.add((long)0);
+        s.add((long)1);
+        for(int i = 2; i < m * 6; i++){
+            s.add((s.get(i - 1) + s.get(i - 2)) % m);
+            if(s.get(i) == 1 && s.get(i-1) == 0){
                 break;
             }
         }
-
-        int period = listRemainder.size() - 2;
-
-        return listRemainder.get((int) (n % period));
+        return s;
     }
-
-
 }
 

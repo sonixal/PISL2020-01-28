@@ -1,4 +1,4 @@
-package by.it.group773601.dedik.lesson01;
+package by.it.group773602.nicheporuk.lesson01;
 
 import java.math.BigInteger;
 
@@ -11,6 +11,10 @@ public class FiboB {
 
     private long startTime = System.currentTimeMillis();
 
+    private long time() {
+        return System.currentTimeMillis() - startTime;
+    }
+
     public static void main(String[] args) {
 
         //вычисление чисел простым быстрым методом
@@ -19,23 +23,16 @@ public class FiboB {
         System.out.printf("fastB(%d)=%d \n\t time=%d \n\n", n, fibo.fastB(n), fibo.time());
     }
 
-    private long time() {
-        return System.currentTimeMillis() - startTime;
-    }
-
     BigInteger fastB(Integer n) {
 
-        //здесь нужно реализовать вариант с временем O(n) и памятью O(n)
-        BigInteger[] array = new BigInteger[n + 1];
-
-        array[0] = BigInteger.ZERO;
-        array[1] = BigInteger.ONE;
+        BigInteger[] q = new BigInteger[n + 1];
+        q[0] = BigInteger.ZERO;
+        q[1] = BigInteger.ONE;
 
         for (int i = 2; i <= n; i++) {
-            array[i] = array[i - 1].add(array[i - 2]);
+            q[i] = q[i - 1].add(q[i - 2]);
         }
-
-        return array[n];
+        return q[n];
     }
 
 }

@@ -1,4 +1,4 @@
-package by.it.group773601.dedik.lesson01;
+package by.it.group773602.grishin.lesson01;
 
 /*
  * Даны целые числа 1<=n<=1E18 и 2<=m<=1E5,
@@ -6,12 +6,17 @@ package by.it.group773601.dedik.lesson01;
  * время расчета должно быть не более 2 секунд
  */
 
+import javax.sound.midi.Sequence;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FiboC {
 
     private long startTime = System.currentTimeMillis();
+
+    private long time() {
+        return System.currentTimeMillis() - startTime;
+    }
 
     public static void main(String[] args) {
         FiboC fibo = new FiboC();
@@ -20,31 +25,29 @@ public class FiboC {
         System.out.printf("fasterC(%d)=%d \n\t time=%d \n\n", n, fibo.fasterC(n, m), fibo.time());
     }
 
-    private long time() {
-        return System.currentTimeMillis() - startTime;
-    }
-
     long fasterC(long n, int m) {
         //решение практически невозможно найти интуитивно
         //вам потребуется дополнительный поиск информации
         //см. период Пизано
+        List<Long> sequence = getSequence(m);
+        long period = sequence.size() - 2;
 
-        List<Long> listRemainder = new ArrayList<>();
+        int index = (int)(n % period);
+        return sequence.get(index);
+    }
 
-        listRemainder.add(0L);
-        listRemainder.add(1L);
+    private static List<Long> getSequence(long m) {
+        List<Long> sequence = new ArrayList<>();
 
-        for (int i = 2; i < m * 6; i++) {
-            long num = listRemainder.get(i - 1) + listRemainder.get(i - 2);
-            listRemainder.add(num % m);
-            if (listRemainder.get(i) == 1 && listRemainder.get(i - 1) == 0) {
-                break;
-            }
+        sequence.add(0L);
+        sequence.add(1L);
+
+        for (int i=2; i < m*6; i++) {
+            sequence.add((sequence.get(i-1) + sequence.get(i-2)) % m);
+            if (sequence.get(i) == 1 && sequence.get(i-1) == 0) { break; }
         }
 
-        int period = listRemainder.size() - 2;
-
-        return listRemainder.get((int) (n % period));
+        return sequence;
     }
 
 
