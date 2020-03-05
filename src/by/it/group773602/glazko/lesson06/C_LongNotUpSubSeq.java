@@ -3,7 +3,8 @@ package by.it.group773602.glazko.lesson06;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /*
 Задача на программирование: наибольшая невозростающая подпоследовательность
@@ -50,15 +51,43 @@ public class C_LongNotUpSubSeq {
         }
         //тут реализуйте логику задачи методами динамического программирования (!!!)
         int result = 0;
+        int[] sequence = new int[m.length];
+        for (int i = 0; i < sequence.length; i++) {
+            sequence[i] = 1;
+            for (int j = 0; j <= i - 1; j++) {
+                if (m[i] <= m[j] && sequence[j] + 1 > sequence[i]) {
+                    sequence[i] = sequence[j] + 1;
+                }
+            }
+        }
+        for (int i = 0; i < sequence.length; i++) {
+            result = sequence[i] > result ? sequence[i] : result;
+        }
 
-
+        int index = Arrays.stream(sequence)
+                .boxed()
+                .collect(Collectors.toList())
+                .indexOf(result);
+        boolean stop = false;
+        List<Integer> indexes = new ArrayList<>();
+        for (int i = index; i > -1 && !stop; i--) {
+            if (i == index || sequence[i] < sequence[i + 1]) {
+                indexes.add(i + 1);
+            }
+            if (sequence[i] == 1) {
+                stop = true;
+            }
+        }
+        Collections.reverse(indexes);
+        indexes.forEach(idx -> System.out.print(idx + " "));
+        System.out.println();
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
     }
 
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
-        InputStream stream = new FileInputStream(root + "by/it/a_khmelev/lesson06/dataC.txt");
+        InputStream stream = new FileInputStream(root + "by/it/group773602/glazko/lesson06/dataC.txt");
         C_LongNotUpSubSeq instance = new C_LongNotUpSubSeq();
         int result = instance.getNotUpSeqSize(stream);
         System.out.print(result);

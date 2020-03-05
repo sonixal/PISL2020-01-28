@@ -3,6 +3,7 @@ package by.it.group773602.glazko.lesson06;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /*
@@ -45,8 +46,18 @@ public class A_LIS {
         }
         //тут реализуйте логику задачи методами динамического программирования (!!!)
         int result = 0;
-
-
+        int[] sequence = new int[m.length];
+        for (int i = 0; i < sequence.length; i++) {
+            sequence[i] = 1;
+            for (int j = 0; j <= i - 1; j++) {
+                if (m[j] < m[i] && sequence[j] + 1 > sequence[i]) {
+                    sequence[i] = sequence[j] + 1;
+                }
+            }
+        }
+        for (int i = 0; i < sequence.length; i++) {
+            result = sequence[i] > result ? sequence[i] : result;
+        }
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
     }
