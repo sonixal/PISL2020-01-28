@@ -27,10 +27,8 @@ import java.util.Scanner;
 */
 
 public class A_BinaryFind {
-    int[] findIndex(InputStream stream) throws FileNotFoundException {
-        //подготовка к чтению данных
+    int[] findIndex(InputStream stream){
         Scanner scanner = new Scanner(stream);
-        //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
 
         //размер отсортированного массива
         int n = scanner.nextInt();
