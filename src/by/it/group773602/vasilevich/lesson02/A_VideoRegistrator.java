@@ -1,6 +1,7 @@
 package by.it.group773602.vasilevich.lesson02;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 /*
 даны события events

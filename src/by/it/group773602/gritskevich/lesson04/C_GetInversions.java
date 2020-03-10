@@ -33,8 +33,8 @@ Sample Output:
 Большой тестовый массив можно прочитать свой или сгенерировать его программно.
 */
 
+
 public class C_GetInversions {
-    int count = 0;
 
     int calc(InputStream stream) throws FileNotFoundException {
         //подготовка к чтению данных
@@ -47,49 +47,51 @@ public class C_GetInversions {
         for (int i = 0; i < n; i++) {
             a[i] = scanner.nextInt();
         }
-        int resulst = 0;
         //!!!!!!!!!!!!!!!!!!!!!!!!     тут ваше решение   !!!!!!!!!!!!!!!!!!!!!!!!
-
-
-        int result = inversionCount(a);
+        int result = countInversions(a);
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
     }
 
-    private int inversionCount(int[] arr) {
-        if (arr.length < 2) {
+    private int countInversions(int[] arr) {
+        int size = arr.length;
+        if (size < 2) {
             return 0;
         }
-        int m = (arr.length + 1) / 2;
-        int left[] = Arrays.copyOfRange(arr, 0, m);
-        int right[] = Arrays.copyOfRange(arr, m, arr.length);
-
-        return inversionCount(left) + inversionCount(right) + Calc(left, right);
+        int m = (size + 1) / 2;
+        int[] left = Arrays.copyOfRange(arr, 0, m);
+        int[] right = Arrays.copyOfRange(arr, m, size);
+        return countInversions(left) + countInversions(right) + merge(arr, left, right);
     }
 
-    private int Calc( int[] left, int[] right) {
-        int i = 0, j = 0;
-        //count = 0;
-        while (i < left.length || j < right.length) {
-            if (i == left.length) {
+    private int merge(int[] arr, int[] left, int[] right) {
+        int i = 0;
+        int j = 0;
+        int count = 0;
+        int leftSize = left.length;
+        int rightSize = right.length;
+        while (i < leftSize || j < rightSize) {
+            if (i == leftSize) {
+                arr[i + j] = right[j];
                 j++;
-            } else if (j == right.length) {
+            } else if (j == rightSize) {
+                arr[i + j] = left[i];
                 i++;
             } else if (left[i] <= right[j]) {
+                arr[i + j] = left[i];
                 i++;
             } else {
-                //count ++;
-                count += left.length-i;
+                arr[i + j] = right[j];
+                count += leftSize - i;
                 j++;
             }
         }
         return count;
     }
 
-
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
-        InputStream stream = new FileInputStream(root + "by/it/group773602/gritskevich/lesson04/dataA.txt");
+        InputStream stream = new FileInputStream(root + "by/it/group773602/gritskevich/lesson04/dataC.txt");
         C_GetInversions instance = new C_GetInversions();
         //long startTime = System.currentTimeMillis();
         int result = instance.calc(stream);
