@@ -11,10 +11,6 @@ public class FiboB {
 
     private long startTime = System.currentTimeMillis();
 
-    private long time() {
-        return System.currentTimeMillis() - startTime;
-    }
-
     public static void main(String[] args) {
 
         //вычисление чисел простым быстрым методом
@@ -23,10 +19,14 @@ public class FiboB {
         System.out.printf("fastB(%d)=%d \n\t time=%d \n\n", n, fibo.fastB(n), fibo.time());
     }
 
+    private long time() {
+        return System.currentTimeMillis() - startTime;
+    }
+
     BigInteger fastB(Integer n) {
 
         //здесь нужно реализовать вариант с временем O(n) и памятью O(n)
-        BigInteger[] array = new BigInteger[n+1];
+        BigInteger[] array = new BigInteger[n + 1];
 
         array[0] = BigInteger.ZERO;
         array[1] = BigInteger.ONE;
