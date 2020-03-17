@@ -54,7 +54,7 @@ public class A_BinaryFind {
             while (start <= end) {
                 int middle = (start + end) / 2;
                 if (value == a[middle]) {
-                    index = middle + 1;
+                    index = middle;
                     break;
                 }
                 if (value < a[middle]) {
@@ -62,6 +62,9 @@ public class A_BinaryFind {
                 } else {
                     start = middle + 1;
                 }
+            }
+            if (index != -1) {
+                index++;
             }
             result[i] = index;
 

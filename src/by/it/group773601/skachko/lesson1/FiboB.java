@@ -1,4 +1,4 @@
-package by.it.group773601.skachko.lesson1;
+package skachko.lesson1;
 
 import java.math.BigInteger;
 
@@ -24,7 +24,6 @@ public class FiboB {
     }
 
     BigInteger fastB(Integer n) {
-        //здесь нужно реализовать вариант с временем O(n) и памятью O(n)
         BigInteger[] elements = new BigInteger[n];
         elements[0] = BigInteger.ONE;
         elements[1] = BigInteger.ONE;
