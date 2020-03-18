@@ -45,7 +45,7 @@ import java.util.Scanner;
 public class B_Huffman {
 
     String decode(File file) throws FileNotFoundException {
-        StringBuilder result=new StringBuilder();
+        StringBuilder result = new StringBuilder();
         //прочитаем строку для кодирования из тестового файла
         Scanner scanner = new Scanner(file);
         Integer count = scanner.nextInt();
@@ -57,7 +57,7 @@ public class B_Huffman {
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             if (!line.isEmpty()) {
-                if (line.toCharArray()[0] == '0' || line.toCharArray()[0] == '1' ) {
+                if (line.toCharArray()[0] == '0' || line.toCharArray()[0] == '1') {
                     codeLine = line;
                 } else {
                     String[] split = line.split(": ");
@@ -66,11 +66,11 @@ public class B_Huffman {
             }
         }
 
-        String str = new String();
+        String str = "";
         char[] chars = codeLine.toCharArray();
         for (int i = 0; i < chars.length; i++) {
             str += chars[i];
-            if(code.containsKey(str)){
+            if (code.containsKey(str)) {
                 result.append(code.get(str));
                 str = "";
             }
