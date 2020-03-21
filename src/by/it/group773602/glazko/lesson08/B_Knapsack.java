@@ -3,6 +3,7 @@ package by.it.group773602.glazko.lesson08;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /*
@@ -37,9 +38,18 @@ public class B_Knapsack {
         for (int i = 0; i < n; i++) {
             gold[i] = scanner.nextInt();
         }
-        int result = 0;
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-        return result;
+        return packKnapsack(w, gold);
+    }
+
+    private int packKnapsack(int maxWeight, int[] gold) {
+        int weight = 0;
+        Arrays.sort(gold);
+        for (int index = gold.length - 1; index >= 0; index--) {
+            int goldPieceWeight = gold[index] <= (maxWeight - weight) ? gold[index] : 0;
+            weight += goldPieceWeight;
+        }
+        return weight;
     }
 
     public static void main(String[] args) throws FileNotFoundException {

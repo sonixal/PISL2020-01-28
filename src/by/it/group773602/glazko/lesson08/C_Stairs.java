@@ -42,10 +42,35 @@ public class C_Stairs {
             stairs[i] = scanner.nextInt();
         }
         //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-        int result = 0;
-
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-        return result;
+        return goUpstairs(stairs);
+    }
+
+    private int goUpstairs(int[] stairs) {
+        int currentPosition = -1;
+        int length = stairs.length;
+        int sum = 0;
+        while (currentPosition <= length - 2) {
+            if (stairs[currentPosition + 1] < 0 &&
+                    currentPosition + 1 != length - 1 &&
+                    stairs[currentPosition + 2] >= 0) {
+                sum += stairs[currentPosition + 2];
+                currentPosition += 2;
+            } else if (stairs[currentPosition + 1] < 0 &&
+                    stairs[currentPosition + 2] < 0) {
+                if (stairs[currentPosition + 1] > stairs[currentPosition + 2]) {
+                    sum += stairs[currentPosition + 1];
+                    currentPosition++;
+                } else {
+                    sum += stairs[currentPosition + 2];
+                    currentPosition += 2;
+                }
+            } else {
+                sum += stairs[currentPosition + 1];
+                currentPosition++;
+            }
+        }
+        return sum;
     }
 
     public static void main(String[] args) throws FileNotFoundException {
