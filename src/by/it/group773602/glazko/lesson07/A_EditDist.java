@@ -39,11 +39,28 @@ import java.util.Scanner;
 
 public class A_EditDist {
 
+    private char[] firstString;
+    private char[] secondString;
+
     int getDistanceEdinting(String one, String two) {
-        //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-        int result = 0;
-        //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-        return result;
+        firstString = one.toCharArray();
+        secondString = two.toCharArray();
+        return editDist(one.length(), two.length());
+    }
+
+    private int editDist(int i, int j) {
+        if (i == 0 && j == 0) {
+            return 0;
+        } else if (i == 0) {
+            return j;
+        } else if (j == 0) {
+            return i;
+        } else if (firstString[i - 1] == secondString[j - 1]) {
+            return editDist(i - 1, j - 1);
+        } else {
+            return Math.min(editDist(i - 1, j),
+                    Math.min(editDist(i, j - 1), editDist(i - 1, j - 1))) + 1;
+        }
     }
 
     public static void main(String[] args) throws FileNotFoundException {

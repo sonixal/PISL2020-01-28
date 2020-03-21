@@ -40,10 +40,34 @@ import java.util.Scanner;
 public class B_EditDist {
 
     int getDistanceEdinting(String one, String two) {
-        //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-        int result = 0;
-        //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-        return result;
+        return editDist(one, two);
+    }
+
+    private int editDist(String one, String two) {
+        int[] distance_h = new int[two.length() + 1];
+        int[] distance = new int[two.length() + 1];
+
+        for (int j = 0; j <= two.length(); j++) {
+            distance[j] = j;
+        }
+
+        for (int i = 1; i <= one.length(); i++) {
+            System.arraycopy(distance, 0, distance_h, 0, distance_h.length);
+
+            distance[0] = i;
+            for (int j = 1; j <= two.length(); j++) {
+                int cost = (one.charAt(i - 1) != two.charAt(j - 1)) ? 1 : 0;
+                distance[j] = min(
+                        distance_h[j] + 1,
+                        distance[j - 1] + 1,
+                        distance_h[j - 1] + cost);
+            }
+        }
+        return distance[distance.length - 1];
+    }
+
+    private int min(int a, int b, int c) {
+        return Math.min(Math.min(a, b), c);
     }
 
     public static void main(String[] args) throws FileNotFoundException {
