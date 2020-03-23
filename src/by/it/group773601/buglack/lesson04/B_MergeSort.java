@@ -22,27 +22,27 @@ Sample Output:
 */
 public class B_MergeSort {
 
-    int[] merge(int[] ar_1, int[] ar_2){
-        int max = ar_1.length + ar_2.length;
-        int[] result = new int[max];
-        int m = 0, n = 0;
-        for (int i = 0; i < max; i++){
-            if (m >= ar_1.length & n < ar_2.length){
-                result[i] = ar_2[n];
-                n++;
-            }else if(n >= ar_2.length & m < ar_1.length){
-                result[i] = ar_1[m];
-                m++;
-            }else if (ar_1[m] <= ar_2[n] & m < ar_1.length){
-                result[i] = ar_1[m];
-                m++;
-            }else {
-                result[i] = ar_2[n];
-                n++;
-            }
-        }
-        return result;
-    }
+//    int[] merge(int[] ar_1, int[] ar_2){
+//        int max = ar_1.length + ar_2.length;
+//        int[] result = new int[max];
+//        int m = 0, n = 0;
+//        for (int i = 0; i < max; i++){
+//            if (m >= ar_1.length & n < ar_2.length){
+//                result[i] = ar_2[n];
+//                n++;
+//            }else if(n >= ar_2.length & m < ar_1.length){
+//                result[i] = ar_1[m];
+//                m++;
+//            }else if (ar_1[m] <= ar_2[n] & m < ar_1.length){
+//                result[i] = ar_1[m];
+//                m++;
+//            }else {
+//                result[i] = ar_2[n];
+//                n++;
+//            }
+//        }
+//        return result;
+//    }
 
     private int[] mergeSort(int[] buffer1, int[] buffer2, int startIndex, int lastIndex) {
         if(startIndex>=lastIndex - 1){

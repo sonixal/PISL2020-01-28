@@ -1,4 +1,4 @@
-package by.it.group773601.skachko.lesson1;
+package skachko.lesson1;
 
 /*
  * Даны целые числа 1<=n<=1E18 и 2<=m<=1E5,
@@ -24,20 +24,30 @@ public class FiboC {
         System.out.printf("fasterC(%d)=%d \n\t time=%d \n\n", n, fibo.fasterC(n, m), fibo.time());
     }
 
-    long fasterC(long n, int m) {
+    public long fasterC(long n, int m) {
+        //решение практически невозможно найти интуитивно
+        //вам потребуется дополнительный поиск информации
+        //см. период Пизано
+        List<Long> sequence = getSequence(m);
+        long period = sequence.size() - 2;
+        int index = (int) (n % period);
+        return sequence.get(index);
+    }
 
-        List<Long> list = new ArrayList<>();
-        list.add(0L);
-        list.add(1L);
-        for (int i = 2; i < (m * 6); i++) {
-            list.add((list.get(i - 1) + list.get(i - 2)) % m);
-            if (list.get(i) == 1 && list.get(i - 1) == 0) {
-                list.remove(i);
-                list.remove(i - 1);
-                break;
+    private List<Long> getSequence(long m) {
+        List<Long> sequence = new ArrayList<>();
+        sequence.add((long) 0);
+        sequence.add((long) 1);
+        boolean continueLooping = true;
+        for (int index = 2; index < m * 6 && continueLooping; index++) {
+            sequence.add((sequence.get(index - 1) + sequence.get(index - 2)) % m);
+            if (sequence.get(index) == 1 && sequence.get(index - 1) == 0) {
+                continueLooping = false;
             }
         }
-        return list.get((int) n % list.size());
+        return sequence;
     }
+
+
 }
 

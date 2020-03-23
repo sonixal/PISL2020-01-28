@@ -1,4 +1,4 @@
-package by.it.group773601.skachko.lesson2;
+package skachko.lesson2;
 /*
 Даны
 1) объем рюкзака 4

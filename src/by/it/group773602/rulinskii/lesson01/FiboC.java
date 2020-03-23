@@ -46,7 +46,6 @@ public class FiboC {
         return remaindArr.get((int)n % (i - 1));
     }
 
-
 }
 
 

@@ -142,13 +142,10 @@ public class A_Huffman {
             LeafNode node = new LeafNode(entry.getKey(), entry.getValue());
             priorityQueue.add(node);
         }
-
-        int sum = 0;
         while (priorityQueue.size() > 1) {
             Node first = priorityQueue.poll();
             Node second = priorityQueue.poll();
             InternalNode node = new InternalNode(first, second);
-            sum += node.getFrequency();
             priorityQueue.add(node);
         }
         Node root = priorityQueue.poll();
