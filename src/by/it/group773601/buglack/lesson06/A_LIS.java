@@ -61,7 +61,6 @@ public class A_LIS {
     }
 
     private int getMax(int[] array) {
-        int max;
         quickSort(array, 0, array.length - 1);
         return array[array.length - 1];
     }
