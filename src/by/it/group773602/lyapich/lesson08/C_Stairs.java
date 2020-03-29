@@ -33,32 +33,51 @@ Sample Output 3:
 */
 
 public class C_Stairs {
-
     int getMaxSum(InputStream stream ) {
         Scanner scanner = new Scanner(stream);
-        int n=scanner.nextInt();
-        int stairs[]=new int[n];
+        int n = scanner.nextInt();
+        int[] stairs = new int[n];
         for (int i = 0; i < n; i++) {
-            stairs[i]=scanner.nextInt();
+            stairs[i] = scanner.nextInt();
         }
         //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-        int result = 0;
-
-
-
-
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-        return result;
+        return goUpstairs(stairs);
     }
 
+    private int goUpstairs(int[] stairs) {
+        int currentPosition = -1;
+        int length = stairs.length;
+        int sum = 0;
+        while (currentPosition <= length - 2) {
+            if (stairs[currentPosition + 1] < 0 &&
+                    currentPosition + 1 != length - 1 &&
+                    stairs[currentPosition + 2] >= 0) {
+                sum += stairs[currentPosition + 2];
+                currentPosition += 2;
+            } else if (stairs[currentPosition + 1] < 0 &&
+                    stairs[currentPosition + 2] < 0) {
+                if (stairs[currentPosition + 1] > stairs[currentPosition + 2]) {
+                    sum += stairs[currentPosition + 1];
+                    currentPosition++;
+                } else {
+                    sum += stairs[currentPosition + 2];
+                    currentPosition += 2;
+                }
+            } else {
+                sum += stairs[currentPosition + 1];
+                currentPosition++;
+            }
+        }
+        return sum;
+    }
 
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
-        InputStream stream = new FileInputStream(root + "by/it/a_khmelev/lesson08/dataC.txt");
+        InputStream stream = new FileInputStream(root + "by/it/group773602/lyapich/lesson08/dataC.txt");
         C_Stairs instance = new C_Stairs();
         int res=instance.getMaxSum(stream);
         System.out.println(res);
     }
-
 }
 
