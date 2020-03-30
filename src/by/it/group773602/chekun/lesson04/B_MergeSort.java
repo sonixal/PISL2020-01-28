@@ -32,7 +32,9 @@ public class B_MergeSort {
             } else if (n >= ar_2.length & m < ar_1.length){
                 result[i] = ar_1[m];
                 m++;
-            } else if (ar_1[m] <= ar_2[n] & m < ar_1.length){
+            }
+
+            else if (ar_1[m] <= ar_2[n] & m < ar_1.length){
                 result[i] = ar_1[m];
                 m++;
             } else {
@@ -47,7 +49,8 @@ public class B_MergeSort {
         int[] result = new int[1];
         int index = (int)(l + r) / 2;
         if (l < r){
-           return merge(mergeSort(arr, l, index), mergeSort(arr, index + 1, r));
+           return merge(
+                   mergeSort(arr, l, index), mergeSort(arr, index + 1, r));
         } else {
             result[0] = arr[l];
             return result;
