@@ -34,7 +34,8 @@ Sample Output 2:
 
 */
 
-public class A_Knapsack {
+public class
+A_Knapsack {
 
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
