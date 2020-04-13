@@ -39,10 +39,15 @@ import java.util.Scanner;
 
 public class A_EditDist {
 
+
     int getDistanceEdinting(String one, String two) {
+
         //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
+
         return distance(one, two, one.length(), two.length());
+
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
+
     }
 
     private int distance(String one, String two, final int i, final int j) {
@@ -61,17 +66,18 @@ public class A_EditDist {
         int insert = distance(one, two, i, j - 1) + 1;
         int replace = distance(one, two, i - 1, j - 1) + 1;
 
-        return Math.min(Math.min(insert, replace),delete);
+        return Math.min(Math.min(insert, replace), delete);
     }
+
 
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
-        InputStream stream = new FileInputStream(root + "by/it/group773602/borshchevich/lesson07/dataABC.txt");
+        InputStream stream = new FileInputStream(root + "by/it/group773602/palto/lesson07/dataABC.txt");
         A_EditDist instance = new A_EditDist();
         Scanner scanner = new Scanner(stream);
-        System.out.println(instance.getDistanceEdinting(scanner.nextLine(),scanner.nextLine()));
-        System.out.println(instance.getDistanceEdinting(scanner.nextLine(),scanner.nextLine()));
-        System.out.println(instance.getDistanceEdinting(scanner.nextLine(),scanner.nextLine()));
+        System.out.println(instance.getDistanceEdinting(scanner.nextLine(), scanner.nextLine()));
+        System.out.println(instance.getDistanceEdinting(scanner.nextLine(), scanner.nextLine()));
+        System.out.println(instance.getDistanceEdinting(scanner.nextLine(), scanner.nextLine()));
     }
 }
 

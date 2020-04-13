@@ -67,7 +67,7 @@ public class C_EditDist {
             }
         }
 
-        String revertResult = "";
+        StringBuilder revertResult = new StringBuilder();
         int i = one.length();
         int j = two.length();
         while (i >= 1) {
@@ -82,19 +82,19 @@ public class C_EditDist {
 
                 if (min == substitute) {
                     if (coefficient == 0) {
-                        revertResult = revertResult + "#,";
+                        revertResult.append("#,");
                     } else {
-                        revertResult = revertResult + "~" + two.charAt(j - 1) + ",";
+                        revertResult.append("~").append(two.charAt(j - 1)).append(",");
                     }
                     i--;
                     j--;
                 }
                 if (min == delete) {
-                    revertResult = revertResult + "-" + one.charAt(i - 1) + ",";
+                    revertResult.append("-").append(one.charAt(i - 1)).append(",");
                     i--;
                 } else {
                     if (min == insert) {
-                        revertResult = revertResult + "+" + two.charAt(j - 1) + ",";
+                        revertResult.append("+").append(two.charAt(j - 1)).append(",");
                         j--;
                     }
 
@@ -103,24 +103,18 @@ public class C_EditDist {
             }
         }
 
-        String[] arrayResult = revertResult.split(",");
-        String result = "";
+        String[] arrayResult = revertResult.toString().split(",");
+        StringBuilder result = new StringBuilder();
         for (int k = arrayResult.length - 1; k >= 0; k--) {
-            result += arrayResult[k] + ",";
+            result.append(arrayResult[k]).append(",");
         }
+        return result.toString();
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-        return result;
     }
+
     private int findMin(int delete, int insert, int substitute) {
-        int min = -1;
-        if (delete < insert) {
-            min = delete;
-        } else {
-            min = insert;
-        }
-        if (min > substitute) {
-            min = substitute;
-        }
+        int min = Math.min(delete, insert);
+        min = Math.min(min,substitute);
         return min;
     }
 
@@ -128,13 +122,15 @@ public class C_EditDist {
         return one != two ? 1 : 0;
     }
 
+
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
-        InputStream stream = new FileInputStream(root + "by/it/group773602/borshchevich/lesson07/dataABC.txt");
+        InputStream stream = new FileInputStream(root + "by/it/group773602/palto/lesson07/dataABC.txt");
         C_EditDist instance = new C_EditDist();
         Scanner scanner = new Scanner(stream);
         System.out.println(instance.getDistanceEdinting(scanner.nextLine(),scanner.nextLine()));
         System.out.println(instance.getDistanceEdinting(scanner.nextLine(),scanner.nextLine()));
         System.out.println(instance.getDistanceEdinting(scanner.nextLine(),scanner.nextLine()));
     }
+
 }

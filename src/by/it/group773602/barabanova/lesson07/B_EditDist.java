@@ -39,42 +39,45 @@ import java.util.Scanner;
 
 public class B_EditDist {
 
+
     int getDistanceEdinting(String one, String two) {
         //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-        int[][] levensteignDistances = new int[one.length() + 1][two.length() + 1];
+        int[][] levenshteinDistances = new int[one.length() + 1][two.length() + 1];
 
         for (int i = 0; i < one.length() + 1; i++) {
-            levensteignDistances[i][0] = i;
+            levenshteinDistances[i][0] = i;
         }
 
         for (int j = 0; j < two.length() + 1; j++) {
-            levensteignDistances[0][j] = j;
+            levenshteinDistances[0][j] = j;
         }
 
         for (int i = 0; i < one.length(); i++) {
             for (int j = 0; j < two.length(); j++) {
                 int cost = getDiff(one.charAt(i), two.charAt(j));
-                levensteignDistances[i + 1][j + 1] = Math.min(Math.min(levensteignDistances[i][j + 1] + 1,
-                        levensteignDistances[i + 1][j] + 1), levensteignDistances[i][j] + cost);
+                levenshteinDistances[i + 1][j + 1] = Math.min(Math.min(levenshteinDistances[i][j + 1] + 1,
+                        levenshteinDistances[i + 1][j] + 1), levenshteinDistances[i][j] + cost);
             }
         }
 
-        int result = levensteignDistances[one.length()][two.length()];
+        return levenshteinDistances[one.length()][two.length()];
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-        return result;
+
     }
 
     private int getDiff(char one, char two) {
         return (one != two) ? 1 : 0;
     }
 
+
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
-        InputStream stream = new FileInputStream(root + "by/it/group773602/borshchevich/lesson07/dataABC.txt");
+        InputStream stream = new FileInputStream(root + "by/it/group773602/palto/lesson07/dataABC.txt");
         B_EditDist instance = new B_EditDist();
         Scanner scanner = new Scanner(stream);
-        System.out.println(instance.getDistanceEdinting(scanner.nextLine(),scanner.nextLine()));
-        System.out.println(instance.getDistanceEdinting(scanner.nextLine(),scanner.nextLine()));
-        System.out.println(instance.getDistanceEdinting(scanner.nextLine(),scanner.nextLine()));
+        System.out.println(instance.getDistanceEdinting(scanner.nextLine(), scanner.nextLine()));
+        System.out.println(instance.getDistanceEdinting(scanner.nextLine(), scanner.nextLine()));
+        System.out.println(instance.getDistanceEdinting(scanner.nextLine(), scanner.nextLine()));
     }
+
 }
