@@ -5,8 +5,8 @@ package by.it.group773601.odinets.lesson01;
  * необходимо найти остаток от деления n-го числа Фибоначчи на m.
  * время расчета должно быть не более 2 секунд
  */
-
 import java.util.ArrayList;
+import java.util.List;
 
 public class FiboC {
 
@@ -24,26 +24,23 @@ public class FiboC {
     }
 
     long fasterC(long n, int m) {
-        //решение практически невозможно найти интуитивно
-        //вам потребуется дополнительный поиск информации
-        //см. период Пизано
-        ArrayList<Long> s = getSequencePeriod(m);
-        long period = s.size() - 2; // находим период Пизано
-        int val = (int)(n % period);
-        return s.get(val);
-    }
 
-    private static ArrayList<Long> getSequencePeriod(long m){
-        ArrayList<Long> s = new ArrayList();
-        s.add((long)0);
-        s.add((long)1);
-        for(int i = 2; i < m * 6; i++){
-            s.add((s.get(i - 1) + s.get(i - 2)) % m);
-            if(s.get(i) == 1 && s.get(i-1) == 0){
+        List<Long> list = new ArrayList<>();
+
+        list.add(0L);
+        list.add(1L);
+
+        for (int i = 2; i < (m * 6); i++) {
+            list.add((list.get(i - 1) + list.get(i - 2)) % m);
+            if (list.get(i) == 1 && list.get(i - 1) == 0) {
+                list.remove(i);
+                list.remove(i-1);
                 break;
             }
         }
-        return s;
+
+        return list.get((int)n%list.size());
     }
+
 }
 
