@@ -37,55 +37,35 @@ Sample Output 2:
 
 public class A_Knapsack {
 
-    int getMaxWeight(InputStream stream ) {
+    int getMaxWeight(InputStream stream) {
         //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         Scanner scanner = new Scanner(stream);
         int w = scanner.nextInt();
         int n = scanner.nextInt();
-        int gold[] = new int[n];
+        int[] gold = new int[n];
         for (int i = 0; i < n; i++) {
             gold[i] = scanner.nextInt();
         }
-
-        int[] sums = new int[n];
-        boolean flag;
-        for(int i = 0, curInd, j, sum; i < n; i++) {
-            j = i;
-            curInd = j;
-            flag = false;
-            sum = 0;
-            while (true) {
-                if(sum + gold[j] >= sums[j] && sum + gold[j] <= w) {
-                    sums[j] = sum + gold[j];
-                    sum = sums[j];
-                    curInd = j;
-                    flag = true;
-                }
-                if (((curInd == j && flag) || (curInd != j && !flag)) && sum < w) {
-                    flag = false;
-                }
-                else break;
-                if (j >= n - 1) {
-                    j = 0;
-                }
-                else j++;
-            }
-            if (sum >= w) {
-                break;
-            }
-        }
-
-        int result = Arrays.stream(sums).max().getAsInt();
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-        return result;
+        return packKnapsack(w, gold);
+    }
+
+    private int packKnapsack(int maxWeight, int[] gold) {
+        int weight = 0;
+        Arrays.sort(gold);
+        for (int index = gold.length - 1; index >= 0; index--) {
+            int goldPieceWeight = gold[index];
+            int count = (maxWeight - weight) / goldPieceWeight;
+            weight += count * goldPieceWeight;
+        }
+        return weight;
     }
 
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
-        InputStream stream = new FileInputStream(root + "by/it/group773602/borshchevich/lesson08/dataA.txt");
+        InputStream stream = new FileInputStream(root + "by/it/group773602/chekun/lesson08/dataA.txt");
         A_Knapsack instance = new A_Knapsack();
-        int res=instance.getMaxWeight(stream);
+        int res = instance.getMaxWeight(stream);
         System.out.println(res);
     }
 }
-

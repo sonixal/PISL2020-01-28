@@ -3,7 +3,6 @@ package by.it.group773602.barabanova.lesson08;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.Scanner;
 
 /*
@@ -38,36 +37,47 @@ public class C_Stairs {
     int getMaxSum(InputStream stream ) {
         Scanner scanner = new Scanner(stream);
         int n = scanner.nextInt();
-        int stairs[] = new int[n];
+        int[] stairs = new int[n];
         for (int i = 0; i < n; i++) {
             stairs[i] = scanner.nextInt();
         }
         //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-        int result = 0;
-        //смещение на один относильно лестницы
-        int[] sums = new int[stairs.length + 1];
-        Arrays.fill(sums, 0);
+        //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
+        return goUpstairs(stairs);
+    }
 
-        for (int i = 0; i < stairs.length; i++) {
-            if (stairs[i] + sums[i] > sums[i + 1]) {
-                sums[i+1] = stairs[i] + sums[i];
-            }
-            if (i < stairs.length - 1 && stairs[i + 1] + sums[i] > sums[i + 2]) {
-                sums[i + 2] = stairs[i + 1] + sums[i];
+    private int goUpstairs(int[] stairs) {
+        int currentPosition = -1;
+        int length = stairs.length;
+        int sum = 0;
+        while (currentPosition <= length - 2) {
+            if (stairs[currentPosition + 1] < 0 &&
+                    currentPosition + 1 != length - 1 &&
+                    stairs[currentPosition + 2] >= 0) {
+                sum += stairs[currentPosition + 2];
+                currentPosition += 2;
+            } else if (stairs[currentPosition + 1] < 0 &&
+                    stairs[currentPosition + 2] < 0) {
+                if (stairs[currentPosition + 1] > stairs[currentPosition + 2]) {
+                    sum += stairs[currentPosition + 1];
+                    currentPosition++;
+                } else {
+                    sum += stairs[currentPosition + 2];
+                    currentPosition += 2;
+                }
+            } else {
+                sum += stairs[currentPosition + 1];
+                currentPosition++;
             }
         }
-
-        result = sums[sums.length - 1];
-        //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-        return result;
+        return sum;
     }
 
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
-        InputStream stream = new FileInputStream(root + "by/it/group773602/borshchevich/lesson08/dataC.txt");
+        InputStream stream = new FileInputStream(root + "by/it/group773602/chekun/lesson08/dataC.txt");
         C_Stairs instance = new C_Stairs();
         int res=instance.getMaxSum(stream);
         System.out.println(res);
     }
 }
-
