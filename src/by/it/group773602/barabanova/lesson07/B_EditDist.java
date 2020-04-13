@@ -39,45 +39,44 @@ import java.util.Scanner;
 
 public class B_EditDist {
 
-
     int getDistanceEdinting(String one, String two) {
-        //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-        int[][] levenshteinDistances = new int[one.length() + 1][two.length() + 1];
+        return editDist(one, two);
+    }
 
-        for (int i = 0; i < one.length() + 1; i++) {
-            levenshteinDistances[i][0] = i;
+    private int editDist(String one, String two) {
+        int[] distance_h = new int[two.length() + 1];
+        int[] distance = new int[two.length() + 1];
+
+        for (int j = 0; j <= two.length(); j++) {
+            distance[j] = j;
         }
 
-        for (int j = 0; j < two.length() + 1; j++) {
-            levenshteinDistances[0][j] = j;
-        }
+        for (int i = 1; i <= one.length(); i++) {
+            System.arraycopy(distance, 0, distance_h, 0, distance_h.length);
 
-        for (int i = 0; i < one.length(); i++) {
-            for (int j = 0; j < two.length(); j++) {
-                int cost = getDiff(one.charAt(i), two.charAt(j));
-                levenshteinDistances[i + 1][j + 1] = Math.min(Math.min(levenshteinDistances[i][j + 1] + 1,
-                        levenshteinDistances[i + 1][j] + 1), levenshteinDistances[i][j] + cost);
+            distance[0] = i;
+            for (int j = 1; j <= two.length(); j++) {
+                int cost = (one.charAt(i - 1) != two.charAt(j - 1)) ? 1 : 0;
+                distance[j] = min(
+                        distance_h[j] + 1,
+                        distance[j - 1] + 1,
+                        distance_h[j - 1] + cost);
             }
         }
-
-        return levenshteinDistances[one.length()][two.length()];
-        //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-
+        return distance[distance.length - 1];
     }
 
-    private int getDiff(char one, char two) {
-        return (one != two) ? 1 : 0;
+    private int min(int a, int b, int c) {
+        return Math.min(Math.min(a, b), c);
     }
-
 
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
-        InputStream stream = new FileInputStream(root + "by/it/group773602/palto/lesson07/dataABC.txt");
+        InputStream stream = new FileInputStream(root + "by/it/group773602/chekun/lesson07/dataABC.txt");
         B_EditDist instance = new B_EditDist();
         Scanner scanner = new Scanner(stream);
         System.out.println(instance.getDistanceEdinting(scanner.nextLine(), scanner.nextLine()));
         System.out.println(instance.getDistanceEdinting(scanner.nextLine(), scanner.nextLine()));
         System.out.println(instance.getDistanceEdinting(scanner.nextLine(), scanner.nextLine()));
     }
-
 }

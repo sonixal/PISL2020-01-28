@@ -39,40 +39,33 @@ import java.util.Scanner;
 
 public class A_EditDist {
 
+    private char[] firstString;
+    private char[] secondString;
 
     int getDistanceEdinting(String one, String two) {
-
-        //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-
-        return distance(one, two, one.length(), two.length());
-
-        //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-
+        firstString = one.toCharArray();
+        secondString = two.toCharArray();
+        return editDist(one.length(), two.length());
     }
 
-    private int distance(String one, String two, final int i, final int j) {
-        if (i == 0) {
+    private int editDist(int i, int j) {
+        if (i == 0 && j == 0) {
+            return 0;
+        } else if (i == 0) {
             return j;
-        }
-        if (j == 0) {
+        } else if (j == 0) {
             return i;
+        } else if (firstString[i - 1] == secondString[j - 1]) {
+            return editDist(i - 1, j - 1);
+        } else {
+            return Math.min(editDist(i - 1, j),
+                    Math.min(editDist(i, j - 1), editDist(i - 1, j - 1))) + 1;
         }
-
-        if (one.charAt(i - 1) == two.charAt(j - 1)) {
-            return distance(one, two, i - 1, j - 1);
-        }
-
-        int delete = distance(one, two, i - 1, j) + 1;
-        int insert = distance(one, two, i, j - 1) + 1;
-        int replace = distance(one, two, i - 1, j - 1) + 1;
-
-        return Math.min(Math.min(insert, replace), delete);
     }
-
 
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
-        InputStream stream = new FileInputStream(root + "by/it/group773602/palto/lesson07/dataABC.txt");
+        InputStream stream = new FileInputStream(root + "by/it/group773602/chekun/lesson07/dataABC.txt");
         A_EditDist instance = new A_EditDist();
         Scanner scanner = new Scanner(stream);
         System.out.println(instance.getDistanceEdinting(scanner.nextLine(), scanner.nextLine()));
@@ -80,4 +73,3 @@ public class A_EditDist {
         System.out.println(instance.getDistanceEdinting(scanner.nextLine(), scanner.nextLine()));
     }
 }
-
