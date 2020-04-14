@@ -85,7 +85,7 @@ public class C_GreedyKnapsack {
     public static void main(String[] args) throws FileNotFoundException {
         long startTime = System.currentTimeMillis();
         String root = System.getProperty("user.dir") + "/src/";
-        File f = new File(root+"by/it/group773602/borshchevich/lesson02/greedyKnapsack.txt");
+        File f = new File(root+"by/it/group773602/nicheporuk/lesson02/greedyKnapsack.txt");
         double costFinal=new C_GreedyKnapsack().calc(f);
         long finishTime = System.currentTimeMillis();
         System.out.printf("Общая стоимость %f (время %d)", costFinal, finishTime - startTime);
